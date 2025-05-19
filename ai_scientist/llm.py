@@ -30,6 +30,7 @@ AVAILABLE_LLMS = [
     "o1-mini-2024-09-12",
     "o3-mini",
     "o3-mini-2025-01-31",
+    "o4-mini",
     # DeepSeek Models
     "deepseek-coder-v2-0724",
     "deepcoder-14b",
@@ -191,7 +192,7 @@ def make_llm_call(client, model, temperature, system_message, prompt):
             stop=None,
             seed=0,
         )
-    elif "o1" in model or "o3" in model:
+    elif "o1" in model or "o3" or "o4" in model:
         return client.chat.completions.create(
             model=model,
             messages=[
@@ -272,7 +273,7 @@ def get_response_from_llm(
         )
         content = response.choices[0].message.content
         new_msg_history = new_msg_history + [{"role": "assistant", "content": content}]
-    elif "o1" in model or "o3" in model:
+    elif "o1" in model or "o3" or "o4" in model:
         new_msg_history = msg_history + [{"role": "user", "content": msg}]
         response = make_llm_call(
             client,
@@ -429,7 +430,7 @@ def create_client(model) -> tuple[Any, str]:
     elif "gpt" in model:
         print(f"Using OpenAI API with model {model}.")
         return openai.OpenAI(), model
-    elif "o1" in model or "o3" in model:
+    elif "o1" in model or "o3" or "o4" in model:
         print(f"Using OpenAI API with model {model}.")
         return openai.OpenAI(), model
     elif model == "deepseek-coder-v2-0724":
