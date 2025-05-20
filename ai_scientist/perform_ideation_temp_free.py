@@ -14,7 +14,8 @@ from ai_scientist.llm import (
     get_response_from_llm,
 )
 
-from ai_scientist.tools.semantic_scholar import SemanticScholarSearchTool
+# from ai_scientist.tools.semantic_scholar import SemanticScholarSearchTool
+from ai_scientist.tools.exa import SemanticScholarSearchTool
 from ai_scientist.tools.base_tool import BaseTool
 
 # Create tool instances
