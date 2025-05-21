@@ -13,6 +13,7 @@ MAX_NUM_TOKENS = 4096
 AVAILABLE_LLMS = [
     "claude-3-5-sonnet-20240620",
     "claude-3-5-sonnet-20241022",
+    "claude-3-7-sonnet-20250219",
     # OpenAI models
     "gpt-4o-mini",
     "gpt-4o-mini-2024-07-18",
@@ -51,7 +52,7 @@ AVAILABLE_LLMS = [
     # Google Gemini models
     "gemini-2.0-flash",
     "gemini-2.5-flash-preview-04-17",
-    "gemini-2.5-pro-preview-03-25",
+    "gemini-2.5-pro-preview-05-06",
 ]
 
 
@@ -192,7 +193,7 @@ def make_llm_call(client, model, temperature, system_message, prompt):
             stop=None,
             seed=0,
         )
-    elif "o1" in model or "o3" or "o4" in model:
+    elif "o1" in model or "o3" in model or "o4" in model:
         return client.chat.completions.create(
             model=model,
             messages=[
@@ -273,7 +274,7 @@ def get_response_from_llm(
         )
         content = response.choices[0].message.content
         new_msg_history = new_msg_history + [{"role": "assistant", "content": content}]
-    elif "o1" in model or "o3" or "o4" in model:
+    elif "o1" in model or "o3" in model or "o4" in model:
         new_msg_history = msg_history + [{"role": "user", "content": msg}]
         response = make_llm_call(
             client,
@@ -430,7 +431,7 @@ def create_client(model) -> tuple[Any, str]:
     elif "gpt" in model:
         print(f"Using OpenAI API with model {model}.")
         return openai.OpenAI(), model
-    elif "o1" in model or "o3" or "o4" in model:
+    elif "o1" in model or "o3" in model or "o4" in model:
         print(f"Using OpenAI API with model {model}.")
         return openai.OpenAI(), model
     elif model == "deepseek-coder-v2-0724":
