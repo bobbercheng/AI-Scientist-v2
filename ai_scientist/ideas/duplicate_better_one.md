@@ -1,0 +1,1 @@
+/Users/jenniferyang/Documents/source/scientist-discovery/ideas/duplicate_better_one.md

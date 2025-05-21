@@ -69,7 +69,9 @@ class SemanticScholarSearchTool(BaseTool):
             "category": "research paper",
             "numResults": self.max_results,
             "contents": {
-                "text": True
+                "text": {
+                    "maxCharacters": 512,
+                }
             },
         }
         
